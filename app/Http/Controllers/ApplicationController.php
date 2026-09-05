@@ -16,7 +16,10 @@ class ApplicationController extends Controller
     public function index(Internship $internship): View
     {
         abort_unless($internship->supervisor_id === auth()->id(), 403);
-        return view('applications.index', ['internship' => $internship, 'applications' => $internship->applications()->with('student')->latest()->get()]);
+        return view('applications.index', [
+            'internship' => $internship->load(['milestones', 'applications.student']),
+            'applications' => $internship->applications()->with('student')->latest()->get(),
+        ]);
     }
 
     public function store(ApplyInternshipRequest $request, Internship $internship, MatchingService $matching, NotificationService $notifications): RedirectResponse

@@ -11,7 +11,11 @@ class StudentProjectController extends Controller
 {
     public function index(): View
     {
-        $applications = Application::with(['internship.milestones.deliverables' => fn ($query) => $query->where('student_id', auth()->id()), 'internship.supervisor'])
+        $applications = Application::with([
+            'internship.supervisor',
+            'internship.milestones',
+        ])
+            ->with(['internship.milestones.deliverables' => fn ($query) => $query->where('student_id', auth()->id())])
             ->where('student_id', auth()->id())
             ->where('status', 'accepted')
             ->latest()
