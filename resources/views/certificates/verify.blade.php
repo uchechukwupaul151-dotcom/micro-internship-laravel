@@ -1,0 +1,3 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Certificate verification</title></head>
+<body><main><h1>Certificate verified</h1><p>Certificate: {{ $certificate->certificate_number }}</p><p>Student: {{ $certificate->student->name }}</p><p>Internship: {{ $certificate->internship->title }}</p><p>Issued: {{ $certificate->issued_at->toDateString() }}</p></main></body></html>
